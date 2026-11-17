@@ -1,0 +1,70 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import "../styles/global.css";
+import archivoWdth from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url";
+import { siteConfig } from "../config/site.config";
+import { clientPayload, t } from "../lib/i18n";
+import { DEFAULT_LANG, LANGS, isTodo, hasValue, instagramLink, tiktokLink } from "../lib/site";
+
+const hasOgImage = fs.existsSync(path.join(process.cwd(), "public", "og-image.jpg"));
+const ogImage = hasOgImage ? (Astro.site ? new URL("/og-image.jpg", Astro.site).href : "/og-image.jpg") : null;
+
+const filled = (v: string) => hasValue(v) && !isTodo(v);
+
+// JSON-LD: only facts that the owner has actually filled in.
+const jsonLd: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: siteConfig.name,
+};
+if (filled(siteConfig.address[DEFAULT_LANG])) {
+  jsonLd.address = { "@type": "PostalAddress", streetAddress: siteConfig.address[DEFAULT_LANG] };
+}
+if (filled(siteConfig.whatsappNumber)) jsonLd.telephone = `+${siteConfig.whatsappNumber}`;
+if (filled(siteConfig.hours[DEFAULT_LANG])) jsonLd.openingHours = siteConfig.hours[DEFAULT_LANG];
+if (filled(siteConfig.mapsLink)) jsonLd.hasMap = siteConfig.mapsLink;
+if (filled(siteConfig.since)) jsonLd.foundingDate = siteConfig.since;
+const sameAs = [
+  filled(siteConfig.instagram) ? instagramLink() : null,
+  filled(siteConfig.tiktok) ? tiktokLink() : null,
+].filter(Boolean);
+if (sameAs.length) jsonLd.sameAs = sameAs;
+
+// Runs before first paint: language, js class, no flash of the wrong language.
+const headScript = `(function(){var d=document.documentElement,def=${JSON.stringify(DEFAULT_LANG)},ok=${JSON.stringify(LANGS)},l=null;d.classList.add("js");try{l=localStorage.getItem("lang")}catch(e){}if(ok.indexOf(l)<0){l=(navigator.language||"").toLowerCase().indexOf("en")===0?"en":def}d.lang=l;if(l!==def){d.classList.add("i18n-pending");setTimeout(function(){d.classList.remove("i18n-pending")},1500)}})();`;
+---
+
+<!doctype html>
+<html lang={DEFAULT_LANG}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={headScript} />
+    <title>{t("meta.title")}</title>
+    <meta name="description" content={t("meta.description")} />
+    <meta name="theme-color" content="#0a0908" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href={archivoWdth} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t("meta.title")} />
+    <meta property="og:description" content={t("meta.description")} />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale:alternate" content="en_US" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/json" id="i18n-data" set:html={JSON.stringify(clientPayload)} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import "../scripts/i18n.ts";
+      import "../scripts/navbar.ts";
+      import "../scripts/menu-tabs.ts";
+      import "../scripts/reveal.ts";
+    </script>
+  </body>
+</html>

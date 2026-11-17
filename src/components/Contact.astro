@@ -1,0 +1,70 @@
+---
+import Icon from "./Icon.astro";
+import { siteConfig } from "../config/site.config";
+import { t } from "../lib/i18n";
+import { DEFAULT_LANG, hasValue, instagramLink, tiktokLink, whatsappLink } from "../lib/site";
+
+const tiles = [
+  hasValue(siteConfig.whatsappNumber) && {
+    icon: "whatsapp" as const,
+    label: "WhatsApp",
+    value: siteConfig.whatsappDisplay,
+    href: whatsappLink(DEFAULT_LANG),
+    wa: true,
+    primary: true,
+  },
+  hasValue(siteConfig.instagram) && {
+    icon: "instagram" as const,
+    label: "Instagram",
+    value: `@${siteConfig.instagram}`,
+    href: instagramLink(),
+    wa: false,
+    primary: false,
+  },
+  hasValue(siteConfig.tiktok) && {
+    icon: "tiktok" as const,
+    label: "TikTok",
+    value: `@${siteConfig.tiktok}`,
+    href: tiktokLink(),
+    wa: false,
+    primary: false,
+  },
+].filter(Boolean) as {
+  icon: "whatsapp" | "instagram" | "tiktok";
+  label: string;
+  value: string;
+  href: string;
+  wa: boolean;
+  primary: boolean;
+}[];
+---
+
+<section id="contact" class="section-y bg-bg-alt" aria-labelledby="contact-title">
+  <div class="container-x">
+    <div data-reveal>
+      <p class="eyebrow" data-i18n="contact.eyebrow">{t("contact.eyebrow")}</p>
+      <h2 id="contact-title" class="heading-serif mt-3" data-i18n="contact.title">{t("contact.title")}</h2>
+      <p class="mt-4 max-w-[52ch] text-text-2" data-i18n="contact.subtitle">{t("contact.subtitle")}</p>
+    </div>
+
+    <ul class="mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5">
+      {tiles.map((tile, i) => (
+        <li data-reveal style={`--i: ${Math.min(i, 4)}`}>
+          <a
+            class:list={["contact-tile", tile.primary && "is-primary"]}
+            href={tile.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-wa={tile.wa ? "" : undefined}
+          >
+            <Icon name={tile.icon} />
+            <span>
+              <span class="block text-lg font-medium text-text">{tile.label}</span>
+              <span class="mt-1 block text-text-2 [overflow-wrap:anywhere]">{tile.value}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

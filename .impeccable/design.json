@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-13T00:00:00Z",
+  "title": "Design System: Nine Aces Pool & Cafe",
+  "extensions": {
+    "colorMeta": {
+      "champagne-gold": { "role": "primary", "displayName": "Champagne Gold", "canonical": "#d2b87d", "tonalRamp": ["#2a2416", "#43391f", "#5f4f2a", "#8a6d2b", "#b39b62", "#d2b87d", "#e8d090", "#f4ead0"] },
+      "champagne-gold-bright": { "role": "primary", "displayName": "Bright Champagne", "canonical": "#e8d090", "tonalRamp": ["#2d2715", "#4a3f1f", "#6c5c2c", "#9a8442", "#c7ad66", "#e8d090", "#f1e0b0", "#f9f1da"] },
+      "charcoal-ground": { "role": "neutral", "displayName": "Charcoal Ground", "canonical": "#0a0908", "tonalRamp": ["#0a0908", "#111111", "#1a1816", "#262626", "#3a352f", "#5c564d", "#9a9382", "#f5f0e6"] },
+      "night-panel": { "role": "neutral", "displayName": "Night Panel", "canonical": "#111111", "tonalRamp": ["#080808", "#111111", "#1c1c1c", "#2a2a2a", "#3d3d3d", "#5a5a5a", "#8a8a8a", "#e6e6e6"] },
+      "warm-panel": { "role": "neutral", "displayName": "Warm Panel", "canonical": "#1a1816", "tonalRamp": ["#0d0c0b", "#1a1816", "#26231f", "#34302b", "#4a443d", "#6b645a", "#9a9382", "#ece6da"] },
+      "felt-card": { "role": "neutral", "displayName": "Felt Card", "canonical": "#262626", "tonalRamp": ["#111111", "#1c1c1c", "#262626", "#333333", "#474747", "#666666", "#999999", "#e6e6e6"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#2a2622", "tonalRamp": ["#14120f", "#1f1c19", "#2a2622", "#3a352f", "#524b43", "#716a5f", "#9a9382", "#e9e3d8"] },
+      "leader-dot": { "role": "neutral", "displayName": "Leader Dot", "canonical": "#3a352f", "tonalRamp": ["#1a1816", "#2a2622", "#3a352f", "#4c463e", "#635b51", "#7f776b", "#a59e8f", "#ebe5d9"] },
+      "bone-white": { "role": "neutral", "displayName": "Bone White", "canonical": "#f5f0e6", "tonalRamp": ["#2b2925", "#4a4640", "#6d685f", "#938d82", "#bab4a8", "#dcd6ca", "#f5f0e6", "#fbf9f4"] },
+      "pewter-text": { "role": "neutral", "displayName": "Pewter", "canonical": "#b8b8b8", "tonalRamp": ["#262626", "#3d3d3d", "#575757", "#737373", "#949494", "#b8b8b8", "#d6d6d6", "#f0f0f0"] },
+      "brass-muted": { "role": "neutral", "displayName": "Muted Brass", "canonical": "#9a9382", "tonalRamp": ["#23211c", "#38352d", "#504b41", "#6b6557", "#857e6d", "#9a9382", "#c2bcae", "#ebe7de"] },
+      "chalk-outline": { "role": "neutral", "displayName": "Chalk Outline", "canonical": "#bfbab0", "tonalRamp": ["#272522", "#3f3c37", "#59554e", "#76716a", "#97928a", "#bfbab0", "#dad6ce", "#f2f0ec"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The venue name only: three equal-size lines, solid / chalk outline / gold outline, nowrap." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles in italic serif." },
+      "tagline": { "displayName": "Tagline", "purpose": "Hero tagline, prefixed with an em dash." },
+      "title": { "displayName": "Title", "purpose": "Menu category titles, followed by a 36 x 1.5px gold rule." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs in Pewter, max 52ch." },
+      "ui": { "displayName": "UI", "purpose": "Buttons (15px), nav links (14px), item names and prices (weight 500)." },
+      "label": { "displayName": "Label", "purpose": "Tracked caps for info-row labels (Muted Brass), the hero address and footer wordmark (gold). 12px from 48rem." },
+      "tab": { "displayName": "Tab", "purpose": "Menu tabs; language switcher at 12px / 0.18em." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Hero line rise (800ms, 120ms stagger) and scroll reveals (700ms, 24px rise, 100ms stagger capped at 5 items)." },
+      { "name": "state", "value": "150ms to 250ms ease-out", "purpose": "Colour, border, underline, and 1 to 2px lift transitions on hover and active state." },
+      { "name": "nav-in", "value": "500ms ease-out", "purpose": "Navbar slides down and fades in once on load." },
+      { "name": "popup", "value": "200ms ease-out", "purpose": "Mobile nav panel from translateY(-8px) scale(0.98), origin top right; menu panel opacity fade." },
+      { "name": "reduced-motion", "value": "0s", "purpose": "Under prefers-reduced-motion, no animations, transforms, or delays; content visible immediately." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "40rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "lg", "value": "64rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid gold action, one per viewport region; always the WhatsApp booking action.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12a9 9 0 0 1-13.4 7.9L3 21l1.2-4.4A9 9 0 1 1 21 12z\"/></svg><span>Chat on WhatsApp</span></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 44px; padding: 0.75rem 1.25rem; border-radius: 6px; font-family: \"Archivo Variable\", Archivo, system-ui, sans-serif; font-weight: 500; font-size: 15px; line-height: 1.2; border: 1px solid transparent; text-decoration: none; white-space: nowrap; transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out, transform 150ms ease-out; } .ds-btn svg { width: 18px; height: 18px; flex: none; } .ds-btn-primary { background: var(--gold, #d2b87d); color: var(--bg, #0a0908); border-color: var(--gold, #d2b87d); } .ds-btn-primary:hover { background: var(--gold-hover, #e8d090); border-color: var(--gold-hover, #e8d090); transform: translateY(-1px); } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid var(--gold, #d2b87d); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Gold outline for the second action, such as See location or Open in Google Maps.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/></svg><span>See location</span></a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.75rem 1.25rem; border-radius: 6px; font-family: \"Archivo Variable\", Archivo, system-ui, sans-serif; font-weight: 500; font-size: 15px; line-height: 1.2; background: transparent; color: var(--gold, #d2b87d); border: 1px solid var(--gold, #d2b87d); text-decoration: none; transition: background-color 200ms ease-out, transform 150ms ease-out; } .ds-btn-secondary svg { width: 18px; height: 18px; } .ds-btn-secondary:hover { background: color-mix(in srgb, var(--gold, #d2b87d) 10%, transparent); transform: translateY(-1px); } .ds-btn-secondary:active { transform: scale(0.98); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--gold, #d2b87d); outline-offset: 2px; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Pewter anchor link; the active section turns gold with a 1.5px underline drawn from the left.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link\" href=\"#\" aria-current=\"true\">Home</a><a class=\"ds-nav-link\" href=\"#\">Location</a><a class=\"ds-nav-link\" href=\"#\">Menu</a><a class=\"ds-nav-link\" href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 2rem; background: var(--bg, #0a0908); padding: 0 1rem; border-bottom: 1px solid var(--line, #2a2622); } .ds-nav-link { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding-inline: 0.25rem; font-family: \"Archivo Variable\", Archivo, system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--text-2, #b8b8b8); text-decoration: none; transition: color 200ms ease-out; } .ds-nav-link::after { content: \"\"; position: absolute; left: 0.25rem; right: 0.25rem; bottom: 9px; height: 1.5px; background: var(--gold, #d2b87d); transform: scaleX(0); transform-origin: left; transition: transform 200ms ease-out; } .ds-nav-link:hover { color: var(--text, #f5f0e6); } .ds-nav-link[aria-current=\"true\"] { color: var(--gold, #d2b87d); } .ds-nav-link[aria-current=\"true\"]::after { transform: scaleX(1); } .ds-nav-link:focus-visible { outline: 2px solid var(--gold, #d2b87d); outline-offset: 2px; }"
+    },
+    {
+      "name": "Menu Tabs",
+      "kind": "chip",
+      "refersTo": "menu-tab",
+      "description": "Tracked caps tabs on a hairline baseline; the selected tab is Bone White over a 1.5px gold rule.",
+      "html": "<div class=\"ds-tabbar\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Main course</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Beverages</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Snacks</button></div>",
+      "css": ".ds-tabbar { display: flex; gap: 1rem; border-bottom: 1px solid var(--line, #2a2622); background: var(--bg, #0a0908); } .ds-tab { min-height: 48px; padding: 0.75rem; margin-bottom: -1px; font-family: \"Archivo Variable\", Archivo, system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted, #9a9382); background: none; border: 0; border-bottom: 1.5px solid transparent; cursor: pointer; transition: color 200ms ease-out, border-color 200ms ease-out; } .ds-tab:hover { color: var(--text-2, #b8b8b8); } .ds-tab[aria-selected=\"true\"] { color: var(--text, #f5f0e6); border-bottom-color: var(--gold, #d2b87d); } .ds-tab:focus-visible { outline: 2px solid var(--gold, #d2b87d); outline-offset: 2px; }"
+    },
+    {
+      "name": "Contact Tile",
+      "kind": "card",
+      "refersTo": "contact-tile",
+      "description": "Whole-tile link on Felt Card with a gold icon; hover turns the border gold and lifts 2px. The primary (WhatsApp) tile is gold-bordered at rest.",
+      "html": "<a class=\"ds-tile ds-tile-primary\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12a9 9 0 0 1-13.4 7.9L3 21l1.2-4.4A9 9 0 1 1 21 12z\"/></svg><span><span class=\"ds-tile-label\">WhatsApp</span><span class=\"ds-tile-value\">+62 812 0000 0000</span></span></a>",
+      "css": ".ds-tile { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; background: var(--card, #262626); border: 1px solid var(--line, #2a2622); border-radius: 10px; color: var(--text, #f5f0e6); text-decoration: none; font-family: \"Archivo Variable\", Archivo, system-ui, sans-serif; transition: border-color 200ms ease-out, transform 200ms ease-out; max-width: 320px; } .ds-tile svg { width: 28px; height: 28px; color: var(--gold, #d2b87d); } .ds-tile-label { display: block; font-size: 18px; font-weight: 500; } .ds-tile-value { display: block; margin-top: 0.25rem; color: var(--text-2, #b8b8b8); } .ds-tile:hover { border-color: var(--gold, #d2b87d); transform: translateY(-2px); } .ds-tile-primary { border-color: var(--gold, #d2b87d); } .ds-tile-primary:hover { border-color: var(--gold-hover, #e8d090); } .ds-tile:focus-visible { outline: 2px solid var(--gold, #d2b87d); outline-offset: 2px; }"
+    },
+    {
+      "name": "Price List",
+      "kind": "custom",
+      "refersTo": "menu-row",
+      "description": "Signature: category title in italic serif with a short gold rule, then baseline rows of name, dotted leader, and tabular gold price.",
+      "html": "<div class=\"ds-menu\"><h3 class=\"ds-cat\">Beverages</h3><div class=\"ds-cat-rule\"></div><ul class=\"ds-rows\"><li class=\"ds-row\"><span class=\"ds-name\">Iced latte</span><span class=\"ds-leader\"></span><span class=\"ds-price\">28</span></li><li class=\"ds-row\"><span class=\"ds-name\">Lemon tea</span><span class=\"ds-leader\"></span><span class=\"ds-price\">18</span></li></ul></div>",
+      "css": ".ds-menu { background: var(--bg, #0a0908); color: var(--text, #f5f0e6); padding: 1.5rem; font-family: \"Archivo Variable\", Archivo, system-ui, sans-serif; } .ds-cat { margin: 0; font-family: \"Instrument Serif\", Georgia, serif; font-style: italic; font-weight: 400; font-size: 32px; line-height: 1.1; } .ds-cat-rule { width: 36px; height: 1.5px; background: var(--gold, #d2b87d); margin-top: 0.75rem; } .ds-rows { list-style: none; margin: 1.5rem 0 0; padding: 0; } .ds-row { display: flex; align-items: baseline; gap: 0.75rem; padding-block: 0.7rem; border-bottom: 1px solid var(--line, #2a2622); } .ds-name { font-weight: 500; } .ds-leader { flex: 1 1 auto; min-width: 1.5rem; border-bottom: 1px dotted var(--line-dot, #3a352f); transform: translateY(-0.3em); } .ds-price { font-weight: 500; color: var(--gold, #d2b87d); font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Name Stack",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "Signature: the venue name as three equal expanded-800 lines, solid, chalk outline, gold outline.",
+      "html": "<div class=\"ds-name-stack\"><span class=\"ds-solid\">Nine</span><span class=\"ds-out-n\">Aces</span><span class=\"ds-out-g\">Pool &amp; Cafe</span></div>",
+      "css": ".ds-name-stack { background: var(--bg, #0a0908); padding: 1.5rem; font-family: \"Archivo Variable\", Archivo, system-ui, sans-serif; font-stretch: 125%; font-variation-settings: \"wdth\" 125; font-weight: 800; text-transform: uppercase; line-height: 0.98; letter-spacing: -0.01em; font-size: 56px; } .ds-name-stack > span { display: block; white-space: nowrap; } .ds-solid { color: var(--text, #f5f0e6); } .ds-out-n { color: transparent; -webkit-text-stroke: 1.5px var(--outline-neutral, #bfbab0); } .ds-out-g { color: transparent; -webkit-text-stroke: 1.5px var(--gold, #d2b87d); }"
+    },
+    {
+      "name": "Empty Photo Slot",
+      "kind": "card",
+      "refersTo": "photo-slot-empty",
+      "description": "Reserved photo space at the final aspect ratio: Warm Panel, 1px dashed Hairline, centred muted photo icon, no text.",
+      "html": "<div class=\"ds-slot\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"1.5\"/><path d=\"M21 16l-5-5-8 8\"/></svg></div>",
+      "css": ".ds-slot { display: flex; align-items: center; justify-content: center; width: 240px; aspect-ratio: 4 / 5; background: var(--bg-alt-2, #1a1816); border: 1px dashed var(--line, #2a2622); border-radius: 8px; color: var(--text-muted, #9a9382); } .ds-slot svg { width: 28px; height: 28px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Club Program",
+    "overview": "Nine Aces is dressed like its own team kit: a charcoal jersey ground with champagne gold ornament, the name lettered across the chest in wide, heavy capitals, and the house menu set as a printed price list with dotted leaders. The page reads as a club's own printed program, not a cafe flyer. Everything sits on near-black; warm off-white carries the reading; gold is the metallic thread that marks what to touch and what things cost.\n\nThe system is flat and typographic. Depth comes from small steps between warm charcoal panels and from hairline rules, never from shadow, glow, blur, or gradient. Three voices do all the work: an expanded Archivo at 800 for the name only, an italic Instrument Serif for headings and the tagline, and small tracked Archivo capitals for labels. Motion is short and purposeful: the name rises out of clipped masks on load, content fades up once as it enters, and state changes run 150 to 250ms ease-out.\n\nDensity is calm on phones first. One column, generous section padding, 44px touch targets, and the two actions that matter (WhatsApp and the map) always within a thumb's reach.",
+    "keyCharacteristics": [
+      "Charcoal ground on every surface; no light sections.",
+      "Champagne gold as the single accent, roughly a tenth of the ink.",
+      "Outline lettering (text stroke) as a native device of the name.",
+      "Hairline rules, dotted price leaders, and short gold underline rules as the ornament.",
+      "Flat surfaces with 6 / 8 / 10px corners.",
+      "Inline SVG icons only."
+    ],
+    "rules": [
+      { "name": "The One Metal Rule", "body": "Gold is the only accent and stays near a tenth of the visible ink. It marks actions, prices, active states, and ornament; it is never used for a paragraph. No saturated yellow, no second accent.", "section": "colors" },
+      { "name": "The Charcoal Floor Rule", "body": "Every surface is a charcoal step. New sections alternate between Charcoal Ground and Night Panel; raised things step to Warm Panel or Felt Card.", "section": "colors" },
+      { "name": "The Two-Weight Rule", "body": "Outside the display name, Archivo uses 400 and 500 only, and the serif uses 400 only. No 600 or 700.", "section": "typography" },
+      { "name": "The Name-Only Display Rule", "body": "Expanded 800 capitals belong to the venue name. Section titles use the italic serif, never the display face.", "section": "typography" },
+      { "name": "The Tabular Price Rule", "body": "Prices use tabular numerals, gold, weight 500, in thousands without a currency suffix.", "section": "typography" },
+      { "name": "The Flat Program Rule", "body": "No box-shadow, glow, blur, glassmorphism, or gradient. A thing is raised by a lighter charcoal step and a hairline, nothing else.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep every surface on a charcoal step (Charcoal Ground, Night Panel, Warm Panel, Felt Card).",
+      "Do use Champagne Gold for actions, prices, active states, icons, and ornament only, around a tenth of the ink.",
+      "Do mark active state with a 1.5px gold rule (underline, tab border, 36px category rule).",
+      "Do separate with 1px Hairline rules and dotted leaders rather than boxes.",
+      "Do keep touch targets at 44px minimum and give every interactive element the 2px gold focus ring at 2px offset.",
+      "Do run transitions at 150 to 250ms ease-out, reveals at 700ms on cubic-bezier(0.22, 1, 0.36, 1), and drop all transforms and delays under reduced motion.",
+      "Do reserve photo space with an empty slot at the final aspect ratio; never substitute a stand-in image."
+    ],
+    "donts": [
+      "Don't use shadows, glow, blur, glassmorphism, or gradients.",
+      "Don't introduce colours outside the token set, saturated yellow, or pure white text.",
+      "Don't use Archivo above weight 500 outside the venue name, or set section titles in the expanded display face.",
+      "Don't use icon fonts, emoji, or glyph characters as icons; icons are inline SVG.",
+      "Don't set paragraphs in gold or darken labels below Muted Brass."
+    ]
+  }
+}

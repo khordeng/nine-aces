@@ -1,0 +1,77 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import Icon from "./Icon.astro";
+import PhotoSlot from "./PhotoSlot.astro";
+import { siteConfig } from "../config/site.config";
+import { resolveSlot } from "../lib/photos";
+import { t } from "../lib/i18n";
+import { DEFAULT_LANG, hasValue, whatsappLink } from "../lib/site";
+
+const hasOrnament = fs.existsSync(path.join(process.cwd(), "public", "images", "hero-ornament.svg"));
+const heroBg = resolveSlot("hero-bg");
+const showHeroBg = heroBg.def.enabled && heroBg.image !== null;
+
+const info = [
+  { key: "hero.open", value: siteConfig.hours[DEFAULT_LANG], i18n: "cfg.hours" },
+  hasValue(siteConfig.since) ? { key: "hero.since", value: siteConfig.since, i18n: null } : null,
+  { key: "hero.contact", value: siteConfig.whatsappDisplay, i18n: null },
+].filter((x) => x !== null && hasValue(x.value)) as { key: string; value: string; i18n: string | null }[];
+---
+
+<section id="home" class="relative isolate flex min-h-svh items-center overflow-hidden bg-bg" aria-labelledby="hero-title">
+  {showHeroBg && (
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <PhotoSlot id="hero-bg" class="hero-bg-photo" eager />
+      <div class="absolute inset-0 bg-bg opacity-70"></div>
+    </div>
+  )}
+  {hasOrnament && (
+    <img src="/images/hero-ornament.svg" alt="" aria-hidden="true" class="pointer-events-none absolute -right-[10%] top-1/2 -z-10 w-[min(90vw,900px)] -translate-y-1/2 opacity-10" />
+  )}
+
+  <div class="container-x pt-[calc(var(--nav-h)+2.5rem)] pb-14 md:pb-20">
+    {hasValue(siteConfig.shortAddress) && (
+      <p class="eyebrow mb-6 md:mb-8" data-reveal style="--reveal-delay: 80ms">{siteConfig.shortAddress}</p>
+    )}
+
+    <h1 id="hero-title" class="hero-title">
+      <span class="sr-only">Nine Aces Pool &amp; Cafe</span>
+      <span class="hero-line" aria-hidden="true"><span class="hero-solid" style="--i: 0">Nine</span></span>
+      <span class="hero-line" aria-hidden="true"><span class="hero-outline-neutral" style="--i: 1">Aces</span></span>
+      <span class="hero-line" aria-hidden="true"><span class="hero-outline-gold" style="--i: 2">Pool &amp; Cafe</span></span>
+    </h1>
+
+    <p class="hero-tagline mt-8 md:mt-10" data-reveal style="--reveal-delay: 550ms">
+      <span aria-hidden="true">&mdash; </span><span data-i18n="cfg.tagline">{t("cfg.tagline")}</span>
+    </p>
+
+    <p class="mt-4 max-w-[52ch] text-text-2" data-reveal style="--reveal-delay: 650ms" data-i18n="cfg.profile">
+      {t("cfg.profile")}
+    </p>
+
+    {info.length > 0 && (
+      <dl class="mt-8 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-6 sm:grid-cols-3" data-reveal style="--reveal-delay: 750ms">
+        {info.map((row) => (
+          <div class="min-w-0">
+            <dt class="label" data-i18n={row.key}>{t(row.key)}</dt>
+            <dd class="mt-1.5 text-[12px] font-medium uppercase leading-snug tracking-[0.12em] text-text [overflow-wrap:anywhere]" data-i18n={row.i18n ?? undefined}>
+              {row.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    )}
+
+    <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--reveal-delay: 850ms">
+      <a class="btn btn-primary" href={whatsappLink(DEFAULT_LANG)} data-wa target="_blank" rel="noopener noreferrer">
+        <Icon name="whatsapp" />
+        <span data-i18n="cta.whatsapp">{t("cta.whatsapp")}</span>
+      </a>
+      <a class="btn btn-secondary" href="#location">
+        <Icon name="pin" />
+        <span data-i18n="cta.seeLocation">{t("cta.seeLocation")}</span>
+      </a>
+    </div>
+  </div>
+</section>

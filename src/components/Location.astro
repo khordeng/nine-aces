@@ -1,0 +1,39 @@
+---
+import Icon from "./Icon.astro";
+import { siteConfig } from "../config/site.config";
+import { t } from "../lib/i18n";
+import { hasValue, isTodo } from "../lib/site";
+
+const showMap = hasValue(siteConfig.mapsEmbedUrl) && !isTodo(siteConfig.mapsEmbedUrl);
+---
+
+<section id="location" class="section-y bg-bg-alt" aria-labelledby="location-title">
+  <div class="container-x">
+    <h2 id="location-title" class="heading-serif" data-reveal data-i18n="location.title">{t("location.title")}</h2>
+
+    <div class:list={["mt-10 md:mt-14 grid items-center gap-10", showMap && "md:grid-cols-[3fr_2fr] md:gap-14"]}>
+      {showMap && (
+        <div data-reveal>
+          <iframe
+            class="map-frame"
+            src={siteConfig.mapsEmbedUrl}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title={t("location.mapTitle")}
+            data-i18n-attr="title:location.mapTitle"
+            allowfullscreen
+          ></iframe>
+        </div>
+      )}
+
+      <div class="max-w-md" data-reveal style={showMap ? "--reveal-delay: 100ms" : undefined}>
+        <p class="text-lg font-medium text-text">{siteConfig.name}</p>
+        <p class="mt-3 whitespace-pre-line text-text-2" data-i18n="cfg.address">{t("cfg.address")}</p>
+        <a class="btn btn-secondary mt-8" href={siteConfig.mapsLink} target="_blank" rel="noopener noreferrer">
+          <Icon name="pin" />
+          <span data-i18n="location.openMaps">{t("location.openMaps")}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

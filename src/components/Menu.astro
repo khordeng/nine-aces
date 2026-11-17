@@ -1,0 +1,84 @@
+---
+import PhotoSlot from "./PhotoSlot.astro";
+import { menu } from "../data/menu";
+import { siteConfig } from "../config/site.config";
+import { resolveSlot } from "../lib/photos";
+import { t } from "../lib/i18n";
+import { formatPrice } from "../lib/site";
+
+const categories = menu.map((cat, index) => ({
+  ...cat,
+  index,
+  hasSlot: resolveSlot(cat.id).render,
+}));
+---
+
+<section id="menu" class="section-y bg-bg" aria-labelledby="menu-title">
+  <div class="container-x">
+    <div class="text-center" data-reveal>
+      <p class="eyebrow" data-i18n="menu.eyebrow">{t("menu.eyebrow")}</p>
+      <h2 id="menu-title" class="heading-serif mt-3" data-i18n="menu.title">{t("menu.title")}</h2>
+    </div>
+
+    <div class="mt-10 md:mt-12" data-reveal style="--reveal-delay: 100ms">
+      <div class="tabbar" role="tablist" data-tablist data-i18n-attr="aria-label:menu.tablist" aria-label={t("menu.tablist")}>
+        {categories.map((cat) => (
+          <button
+            type="button"
+            role="tab"
+            class="tab"
+            id={`tab-${cat.id}`}
+            aria-selected={String(cat.index === 0)}
+            aria-controls={`panel-${cat.id}`}
+            tabindex={cat.index === 0 ? "0" : "-1"}
+            data-tab
+          >
+            <span data-i18n={`menu.cat.${cat.id}`}>{t(`menu.cat.${cat.id}`)}</span>
+            {cat.id === "cigarettes" && siteConfig.showAgeNoteOnCigarettes && (
+              <span class="age-note" data-i18n-attr="title:menu.ageNote" title={t("menu.ageNote")}>18+</span>
+            )}
+          </button>
+        ))}
+      </div>
+      <p class="mt-4 text-center text-[12px] text-muted" data-i18n="menu.priceNote">{t("menu.priceNote")}</p>
+    </div>
+
+    <div class="mt-10 md:mt-14">
+      {categories.map((cat) => (
+        <div
+          class="menu-panel"
+          role="tabpanel"
+          id={`panel-${cat.id}`}
+          aria-labelledby={`tab-${cat.id}`}
+          tabindex="0"
+          hidden={cat.index !== 0}
+          data-panel
+        >
+          <div class:list={[
+            "grid gap-8",
+            cat.hasSlot ? "md:grid-cols-[3fr_2fr] md:items-start md:gap-14" : "mx-auto max-w-[40rem]",
+          ]}>
+            {cat.hasSlot && (
+              <div class="md:order-2 md:sticky md:top-[calc(var(--nav-h)+1.5rem)]">
+                <PhotoSlot id={cat.id} />
+              </div>
+            )}
+            <div class="md:order-1">
+              <h3 class="cat-title" data-i18n={`menu.cat.${cat.id}`}>{t(`menu.cat.${cat.id}`)}</h3>
+              <div class="cat-rule" aria-hidden="true"></div>
+              <ul class="mt-6">
+                {cat.items.map((item) => (
+                  <li class="menu-row">
+                    <span class="name">{item.name}</span>
+                    <span class="leader" aria-hidden="true"></span>
+                    <span class="price">{formatPrice(item.price)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

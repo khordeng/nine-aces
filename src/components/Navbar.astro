@@ -1,0 +1,92 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import Icon from "./Icon.astro";
+import { t } from "../lib/i18n";
+import { DEFAULT_LANG, LANGS, whatsappLink } from "../lib/site";
+
+const hasLogo = fs.existsSync(path.join(process.cwd(), "public", "logo-nav.svg"));
+const links = [
+  { href: "#home", key: "nav.home" },
+  { href: "#location", key: "nav.location" },
+  { href: "#menu", key: "nav.menu" },
+  { href: "#contact", key: "nav.contact" },
+];
+---
+
+<header class="site-header" data-navbar>
+  <div class="container-x flex h-full items-center justify-between gap-6">
+    <a href="#home" class="flex min-h-11 items-center" aria-label="Nine Aces Pool & Cafe">
+      {hasLogo ? (
+        <img src="/logo-nav.svg" alt="" width="1190" height="375" class="h-8 w-auto md:h-10" decoding="async" />
+      ) : (
+        <span class="font-medium tracking-[0.08em] text-gold">NINE ACES</span>
+      )}
+    </a>
+
+    <nav class="hidden md:block" data-i18n-attr="aria-label:nav.primary" aria-label={t("nav.primary")}>
+      <ul class="flex items-center gap-5 lg:gap-8">
+        {links.map((l) => (
+          <li>
+            <a class="nav-link" href={l.href} data-nav-link data-i18n={l.key}>{t(l.key)}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <div class="flex" role="group" data-i18n-attr="aria-label:nav.language" aria-label={t("nav.language")}>
+        {LANGS.map((lang) => (
+          <button type="button" class="lang-btn" data-lang-btn={lang} aria-pressed={String(lang === DEFAULT_LANG)} lang={lang}>
+            {lang.toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <a class="btn btn-primary" href={whatsappLink(DEFAULT_LANG)} data-wa target="_blank" rel="noopener noreferrer">
+        <Icon name="whatsapp" />
+        <span data-i18n="cta.whatsapp">{t("cta.whatsapp")}</span>
+      </a>
+    </div>
+
+    <button
+      type="button"
+      class="nav-toggle md:hidden"
+      aria-expanded="false"
+      aria-controls="nav-panel"
+      data-nav-toggle
+      data-i18n-attr="aria-label:nav.openMenu"
+      aria-label={t("nav.openMenu")}
+    >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false">
+        <line class="bar bar-1" x1="3" y1="6" x2="19" y2="6" />
+        <line class="bar bar-2" x1="3" y1="11" x2="19" y2="11" />
+        <line class="bar bar-3" x1="3" y1="16" x2="19" y2="16" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="nav-panel" class="nav-panel md:hidden" data-nav-panel>
+    <nav data-i18n-attr="aria-label:nav.primary" aria-label={t("nav.primary")}>
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a class="nav-link" href={l.href} data-nav-link data-i18n={l.key}>{t(l.key)}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mt-4 flex items-center justify-between gap-3">
+      <div class="-ml-2 flex" role="group" data-i18n-attr="aria-label:nav.language" aria-label={t("nav.language")}>
+        {LANGS.map((lang) => (
+          <button type="button" class="lang-btn" data-lang-btn={lang} aria-pressed={String(lang === DEFAULT_LANG)} lang={lang}>
+            {lang.toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <a class="btn btn-primary" href={whatsappLink(DEFAULT_LANG)} data-wa target="_blank" rel="noopener noreferrer">
+        <Icon name="whatsapp" />
+        <span data-i18n="cta.whatsapp">{t("cta.whatsapp")}</span>
+      </a>
+    </div>
+  </div>
+</header>

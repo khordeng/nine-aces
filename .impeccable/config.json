@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "sfmono-regular",
+        "createdAt": "2026-11-13T12:45:14.778Z",
+        "reason": "SPEC.md 4.8 mandates small monospace text for the DEV-only photo slot path label (.dev-path); never rendered in production"
+      }
+    ]
+  }
+}

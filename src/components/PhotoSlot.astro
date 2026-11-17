@@ -1,0 +1,34 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { resolveSlot } from "../lib/photos";
+import { t } from "../lib/i18n";
+
+type Props = { id: string; class?: string; eager?: boolean };
+const { id, class: className, eager = false } = Astro.props;
+
+const slot = resolveSlot(id);
+const style = `--ratio: ${slot.def.ratio}; --ratio-m: ${slot.def.ratioMobile ?? slot.def.ratio};`;
+const altKey = `photo.${slot.def.id}`;
+---
+
+{slot.render && (
+  slot.image ? (
+    <div class:list={["photo-slot", className]} style={style} data-photo-slot={slot.def.id}>
+      <Image
+        src={slot.image}
+        alt={t(altKey)}
+        data-i18n-attr={`alt:${altKey}`}
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 768px) 40vw, 100vw"
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+      />
+    </div>
+  ) : (
+    <div class:list={["photo-slot is-empty", className]} style={style} aria-hidden="true" data-photo-slot={slot.def.id}>
+      <Icon name="photo" class="h-7 w-7" />
+      {import.meta.env.DEV && <span class="dev-path">{slot.expectedPath}</span>}
+    </div>
+  )
+)}
